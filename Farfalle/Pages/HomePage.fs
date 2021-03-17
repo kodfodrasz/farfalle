@@ -2,6 +2,7 @@
 [<RequireQualifiedAccess>]
 module Farfalle.Pages.HomePage
 
+open System
 open System.Threading.Tasks
 open Microsoft.AspNetCore.Http
 
@@ -10,9 +11,9 @@ open Falco.Markup
 open Falco.Markup.Elem
 
 let homeHandler : HttpContext -> Task =
-  html [] [
-    head [] []
-    body [] [
+  PageFrame.renderPageFrame
+    String.Empty
+    (body [] [
       h1 [] [ Text.raw "Farfalle" ]
       img [ Attr.src "/images/farfalle-512px.png" ]
       p [] [ Text.raw "Welcome!" ]
@@ -25,8 +26,5 @@ let homeHandler : HttpContext -> Task =
                 Attr.name "filename" ]
         input [ Attr.type' "submit" ]
       ]
-    ]
-  ]
-
-
+     ])
   |> Response.ofHtml

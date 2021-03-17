@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Compile Include="Config.fs" />
+    <Compile Include="Pages\PageFrame.fs" />
     <Compile Include="Pages\UploadFile.fs" />
     <Compile Include="Pages\HomePage.fs" />
     <Compile Include="Program.fs" />
