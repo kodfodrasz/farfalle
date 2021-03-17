@@ -28,29 +28,29 @@ let private faviconHeadMeta =
   let appleTouchIcon size =
     link [ Attr.rel "apple-touch-icon"
            Attr.create "sizes" (sprintf "%i" size)
-           Attr.href (sprintf "/apple-icon-%ix%i.png" size size) ]
+           Attr.href (sprintf "/favicons/apple-icon-%ix%i.png" size size) ]
 
   let androidIcon size =
     link [ Attr.rel "icon"
            Attr.type' "image/png"
            Attr.create "sizes" (sprintf "%i" size)
-           Attr.href (sprintf "/android-icon-%ix%i.png" size size) ]
+           Attr.href (sprintf "/favicons/android-icon-%ix%i.png" size size) ]
 
   let pngFavicon size =
     link [ Attr.rel "icon"
            Attr.type' "image/png"
            Attr.create "sizes" (sprintf "%i" size)
-           Attr.href (sprintf "/favicon-%ix%i.png" size size) ]
+           Attr.href (sprintf "/favicons/favicon-%ix%i.png" size size) ]
 
   let pngFavicon size =
     link [ Attr.rel "icon"
            Attr.type' "image/png"
            Attr.create "sizes" (sprintf "%i" size)
-           Attr.href (sprintf "/favicon-%ix%i.png" size size) ]
+           Attr.href (sprintf "/favicons/favicon-%ix%i.png" size size) ]
 
   let msapplicationTileImage size =
     meta [ Attr.name "msapplication-TileImage"
-           Attr.content (sprintf "/ms-icon-%ix%i.png" size size) ]
+           Attr.content (sprintf "/favicons/ms-icon-%ix%i.png" size size) ]
 
 
   let manifest =
@@ -79,15 +79,15 @@ let private faviconHeadMeta =
   }
   |> Seq.toList
 
-let renderPageFrame title' body' =
+let renderPageFrame title' content =
   html [ Attr.lang "en" ] [
     head
       []
       (List.collect
         id
         [ [ meta [ Attr.charset "utf-8" ]
-
-            link [ Attr.rel "/css/farfalle.css" ]
+            link [ Attr.rel "stylesheet"
+                   Attr.href "/css/farfalle.css" ]
 
             Elem.title [] [
               if System.String.IsNullOrWhiteSpace title' then
@@ -96,26 +96,22 @@ let renderPageFrame title' body' =
                 Text.rawf "%s - Farfalle" title'
             ] ]
           faviconHeadMeta ])
-    body
-      []
-      (List.collect
-        id
-        [ [ div [ Attr.id "header"
-                  Attr.class' "header" ] [
-              img [ Attr.src "/images/farfalle-256px.png"
-                    Attr.id "brand-logo" ]
-              div [ Attr.class' "brand-name" ] [
-                Text.raw "Farfalle"
-              ]
-            ] ]
-          body'
-          [ div [ Attr.id "footer"
-                  Attr.class' "footer" ] [
-              div [ Attr.id "brand-copyright" ] [
-                if copyrightSinceYear = currentYear then
-                  Text.rawf "Farfalle © %i" copyrightSinceYear
-                else
-                  Text.rawf "Farfalle © %i&nbsp;&emdash;&nbsp;%i" copyrightSinceYear currentYear
-              ]
-            ] ] ])
+    body [] [
+      div [ Attr.class' "header" ] [
+        img [ Attr.src "/images/farfalle-256px.png"
+              Attr.class' "brand-logo" ]
+        div [ Attr.class' "brand-name" ] [
+          Text.raw "Farfalle"
+        ]
+      ]
+      div [ Attr.class' "main" ] content
+      div [ Attr.class' "footer" ] [
+        div [ Attr.class' "brand-copyright" ] [
+          if copyrightSinceYear = currentYear then
+            Text.rawf "Farfalle © %i" copyrightSinceYear
+          else
+            Text.rawf "Farfalle © %i&nbsp;&emdash;&nbsp;%i" copyrightSinceYear currentYear
+        ]
+      ]
+    ]
   ]

@@ -1,0 +1,10 @@
+:root {
+  --page-outer-bg-color: #1e90ff;
+  --page-content-bg-color: #ffffff;
+  
+  --header-bg-color: #808080;
+  --header-text-color: #ffd800;
+
+  --footer-bg-color: inherit;
+  --footer-text-color: inherit;
+}

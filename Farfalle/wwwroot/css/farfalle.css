@@ -1,1 +1,49 @@
+@import "reset.css";
+@import "colorscheme.css";
 
+/* The style */
+html {
+  background-color: var(--page-outer-bg-color);
+}
+
+body {
+  max-width: 60em;
+  background-color: var(--page-content-bg-color);
+  margin: auto;
+}
+
+.header {
+  max-width: 100%;
+  display: flex;
+  padding: 0.5em;
+  color: var(--header-text-color);
+  background-color: var(--header-bg-color);
+}
+
+.main {
+  padding: 1em;
+}
+
+.footer {
+  max-width: 100%;
+  display: flex;
+  padding: 0.5em;
+  margin-top: 3em;
+  color: var(--footer-text-color);
+  background-color: var(--footer-bg-color);
+}
+
+.brand-logo {
+  height: 64px;
+  margin: 0.75em;
+}
+
+.brand-name {
+  font-size: 64px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.brand-copyright {
+  margin: auto;
+}
