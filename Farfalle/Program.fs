@@ -7,37 +7,69 @@ open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 
+open Farfalle.Pages
+open Microsoft.AspNetCore.Http
+open Microsoft.Extensions.FileProviders
+open System.IO
+
 // ------------
 // Register services
 // ------------
-let configureServices (services : IServiceCollection) =
-    services.AddFalco() |> ignore
+let configureServices (services: IServiceCollection) = services.AddFalco() |> ignore
 
 // ------------
 // Activate middleware
 // ------------
-let configureApp (endpoints : HttpEndpoint list) (ctx : WebHostBuilderContext) (app : IApplicationBuilder) =    
-    let devMode = StringUtils.strEquals ctx.HostingEnvironment.EnvironmentName "Development"    
-    app.UseWhen(devMode, fun app -> 
-            app.UseDeveloperExceptionPage())
-       .UseWhen(not(devMode), fun app -> 
-            app.UseFalcoExceptionHandler(Response.withStatusCode 500 >> Response.ofPlainText "Server error"))
-       .UseFalco(endpoints) |> ignore
+let configureApp
+  (config: Config)
+  (endpoints: HttpEndpoint list)
+  (ctx: WebHostBuilderContext)
+  (app: IApplicationBuilder)
+  =
+  let devMode =
+    StringUtils.strEquals ctx.HostingEnvironment.EnvironmentName "Development"
+
+  let uploadsDir = Path.Combine(config.DataDir, "uploads")
+  Directory.CreateDirectory uploadsDir |> ignore
+  
+  app
+    .UseWhen(devMode, (fun app -> app.UseDeveloperExceptionPage()))
+    .UseWhen(
+      not (devMode),
+      fun app ->
+        app.UseFalcoExceptionHandler(
+          Response.withStatusCode 500
+          >> Response.ofPlainText "Server error"
+        )
+    )
+    .UseFalco(endpoints)
+    .UseStaticFiles() // wwwroot
+    .UseStaticFiles(
+      StaticFileOptions(
+        RequestPath = (PathString) "/uploads",
+        FileProvider = new PhysicalFileProvider(uploadsDir)
+      )
+    )
+  |> ignore
+
 
 // -----------
 // Configure Web host
 // -----------
-let configureWebHost (endpoints : HttpEndpoint list) (webHost : IWebHostBuilder) =
-    webHost
-        .ConfigureServices(configureServices)
-        .Configure(configureApp endpoints)
+let configureWebHost config (endpoints: HttpEndpoint list) (webHost: IWebHostBuilder) =
+  webHost
+    .ConfigureServices(configureServices)
+    .Configure(configureApp config endpoints)
 
 [<EntryPoint>]
-let main args =   
-    webHost args {
-        configure configureWebHost
-        endpoints [            
-            get "/" (Response.ofPlainText "Hello world")
-        ]
-    }
-    0
+let main args =
+  let config = Config.FromEnv() |> Option.get
+
+  webHost args {
+    configure (configureWebHost config)
+
+    endpoints [ get "/" HomePage.homeHandler
+                post "/upload-file" (UploadFile.uploadFileHandler config) ]
+  }
+
+  0

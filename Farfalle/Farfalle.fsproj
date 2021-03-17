@@ -5,10 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Config.fs" />
+    <Compile Include="Pages\UploadFile.fs" />
+    <Compile Include="Pages\HomePage.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="Falco" Version="3.0.*" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Update="wwwroot\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

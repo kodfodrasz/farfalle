@@ -343,3 +343,4 @@ healthchecksdb
 
 # VisualStudio Code Ionide
 .ionide/
+data/
