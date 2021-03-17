@@ -6,7 +6,8 @@ A simple copy-pasta web-application
 
 ### Logo
 
-![Farfalle/wwwroot/images/farfalle-256px.png]
+![Farfalle logo](Farfalle/wwwroot/images/farfalle-256px.png)
+
 
 Logo made by [Freepik](https://www.flaticon.com/authors/freepik), downloaded from [flaticon.com](https://www.flaticon.com/free-icon/farfalle_4162121).
 
