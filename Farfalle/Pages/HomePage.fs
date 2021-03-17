@@ -13,10 +13,9 @@ open Falco.Markup.Elem
 let homeHandler : HttpContext -> Task =
   PageFrame.renderPageFrame
     String.Empty
-    (body [] [
-      h1 [] [ Text.raw "Farfalle" ]
-      img [ Attr.src "/images/farfalle-512px.png" ]
-      p [] [ Text.raw "Welcome!" ]
+    [
+      h1 [] [ Text.raw "Welcome to Farfalle!" ]
+      p [] [ Text.raw "What is Farfalle? Farfalle is a copy-pasta application to quickly share self-deleting ephemeral text snippets, images, or files with others. Oh, and also it is the name of a kind of italian pasta."]
       p [] [ Text.raw "Upload a file!" ]
       form [ Attr.action "/upload-file"
              Attr.method "POST"
@@ -26,5 +25,5 @@ let homeHandler : HttpContext -> Task =
                 Attr.name "filename" ]
         input [ Attr.type' "submit" ]
       ]
-     ])
+     ]
   |> Response.ofHtml

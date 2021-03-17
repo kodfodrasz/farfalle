@@ -5,6 +5,9 @@ module Farfalle.Pages.PageFrame
 open Falco.Markup
 open Falco.Markup.Elem
 
+let copyrightSinceYear = 2021
+let currentYear = System.DateTime.Now.Year
+
 let private faviconHeadMeta =
   let appleIconSizes =
     [ 57
@@ -18,7 +21,7 @@ let private faviconHeadMeta =
       180 ]
 
   let androidIconSizes = [ 192 ]
-  let pngFaviconSizes = [ 16; 32; 96; ]
+  let pngFaviconSizes = [ 16; 32; 96 ]
   let msApplicationSizes = [ 144 ]
   let tilecolor = "#777777"
 
@@ -80,18 +83,39 @@ let renderPageFrame title' body' =
   html [ Attr.lang "en" ] [
     head
       []
-      (List.append
-        [ meta [ Attr.charset "utf-8" ]
+      (List.collect
+        id
+        [ [ meta [ Attr.charset "utf-8" ]
 
-          link [ Attr.rel "/css/farfalle.css" ]
+            link [ Attr.rel "/css/farfalle.css" ]
 
-          Elem.title [] [
-            if System.String.IsNullOrWhiteSpace title' then
-              Text.raw "Farfalle"
-            else
-              Text.rawf "%s - Farfalle" title'
-          ]
-          ]
-        faviconHeadMeta)
-    body'
+            Elem.title [] [
+              if System.String.IsNullOrWhiteSpace title' then
+                Text.raw "Farfalle"
+              else
+                Text.rawf "%s - Farfalle" title'
+            ] ]
+          faviconHeadMeta ])
+    body
+      []
+      (List.collect
+        id
+        [ [ div [ Attr.id "header"
+                  Attr.class' "header" ] [
+              img [ Attr.src "/images/farfalle-256px.png"
+                    Attr.id "brand-logo" ]
+              div [ Attr.class' "brand-name" ] [
+                Text.raw "Farfalle"
+              ]
+            ] ]
+          body'
+          [ div [ Attr.id "footer"
+                  Attr.class' "footer" ] [
+              div [ Attr.id "brand-copyright" ] [
+                if copyrightSinceYear = currentYear then
+                  Text.rawf "Farfalle © %i" copyrightSinceYear
+                else
+                  Text.rawf "Farfalle © %i&nbsp;&emdash;&nbsp;%i" copyrightSinceYear currentYear
+              ]
+            ] ] ])
   ]
