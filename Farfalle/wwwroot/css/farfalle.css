@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  max-width: 60em;
+  max-width: 50em;
   background-color: var(--page-content-bg-color);
   margin: auto;
 }
@@ -26,11 +26,14 @@ body {
 
 .footer {
   max-width: 100%;
-  display: flex;
   padding: 0.5em;
-  margin-top: 3em;
+  margin-top: 2em;
   color: var(--footer-text-color);
   background-color: var(--footer-bg-color);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .brand-logo {
@@ -46,4 +49,6 @@ body {
 
 .brand-copyright {
   margin: auto;
+  width: 15em;
+  text-align: center;
 }
