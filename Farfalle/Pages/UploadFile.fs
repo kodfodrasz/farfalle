@@ -52,7 +52,9 @@ let saveFile config filesDir (formFile: IFormFile) =
   let filePath =
     Path.ChangeExtension(filePathWithoutExtension, fileExtension)
 
-  File.Move(tempfileName, filePath)
+  if File.Exists filePath
+  then File.Delete tempfileName
+  else File.Move(tempfileName, filePath)
 
   getFileUrl config filePath
 
