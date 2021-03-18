@@ -14,11 +14,16 @@
   
   <ItemGroup>
     <PackageReference Include="Falco" Version="3.0.*" />
+    <PackageReference Include="NLipsum" Version="1.1.0" />
   </ItemGroup>
   
   <ItemGroup>
     <Content Update="wwwroot\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="5.0.1" />
   </ItemGroup>
 </Project>

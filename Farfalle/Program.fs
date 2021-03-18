@@ -68,7 +68,7 @@ let main args =
   webHost args {
     configure (configureWebHost config)
 
-    endpoints [ get "/" HomePage.homeHandler
+    endpoints [ get "/" (Request.mapQuery HomePage.parseHomeHandlerParams HomePage.homeHandler)
                 post "/upload-file" (UploadFile.uploadFileHandler config) ]
   }
 

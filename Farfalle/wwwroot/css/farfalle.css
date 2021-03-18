@@ -10,6 +10,8 @@ body {
   max-width: 50em;
   background-color: var(--page-content-bg-color);
   margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -18,22 +20,18 @@ body {
   padding: 0.5em;
   color: var(--header-text-color);
   background-color: var(--header-bg-color);
+  flex-basis: 100%;
 }
 
 .main {
   padding: 1em;
+  flex-grow: 1;
 }
 
 .footer {
-  max-width: 100%;
   padding: 0.5em;
-  margin-top: 2em;
   color: var(--footer-text-color);
   background-color: var(--footer-bg-color);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .brand-logo {
@@ -51,4 +49,21 @@ body {
   margin: auto;
   width: 15em;
   text-align: center;
+}
+
+/* Upload form */
+form.upload-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+form.upload-form input.upload-form-file {
+  margin: .25em;
+  flex-grow: 1;
+}
+
+form.upload-form input.form {
+  flex: 100%;
+  padding: 0.5em;
+  margin: 1em .25em .25em .25em;
 }
