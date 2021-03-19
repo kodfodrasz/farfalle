@@ -6,3 +6,6 @@ src/obj
 src/.fable
 .ionide
 .vs
+
+public/app.js
+src/**/*.fs.js

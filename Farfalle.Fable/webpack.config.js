@@ -9,7 +9,7 @@ module.exports = {
     entry: "./src/App.fs.js",
     output: {
         path: path.join(__dirname, "./public"),
-        filename: "bundle.js",
+        filename: "app.js",
     },
     devServer: {
         publicPath: "/",
