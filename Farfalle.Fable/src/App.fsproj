@@ -1,7 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <YarnWorkingDir>$(MSBuildProjectDirectory)/../</YarnWorkingDir>
+    <YarnBuildCommand>run webpack</YarnBuildCommand>
   </PropertyGroup>
+
+  <Target Name="YarnInstall" BeforeTargets="YarnBuild">
+    <Yarn Command="install" Condition=" ! Exists('node_modules/')" />
+  </Target>
+
   <ItemGroup>
     <Compile Include="App.fs" />
   </ItemGroup>
