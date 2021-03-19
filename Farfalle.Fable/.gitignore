@@ -1,6 +1,6 @@
 node_modules
 package_lock.json
-yarn.package_lock
+yarn.lock
 src/bin
 src/obj
 src/.fable
