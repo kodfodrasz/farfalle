@@ -1,0 +1,8 @@
+node_modules
+package_lock.json
+yarn.package_lock
+src/bin
+src/obj
+src/.fable
+.ionide
+.vs
