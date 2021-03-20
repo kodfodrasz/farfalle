@@ -5,17 +5,25 @@
 var path = require("path");
 
 module.exports = {
-    mode: "development",
-    entry: "./src/App.fs.js",
-    output: {
-        path: path.join(__dirname, "./public"),
-        filename: "app.js",
-    },
-    devServer: {
-        publicPath: "/",
-        contentBase: "./public",
-        port: 8080,
-    },
-    module: {
-    }
+  mode: "development",
+  entry: "./Farfalle.Fable.fsproj",
+  output: {
+    path: path.join(__dirname, "./public"),
+    filename: "farfalle.js",
+  },
+  devServer: {
+    publicPath: "/",
+    contentBase: "./public",
+    port: 8080,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.fs(x|proj)?$/,
+        use: {
+          loader: 'fable-loader',
+        }
+      }
+    ]
+  }
 }

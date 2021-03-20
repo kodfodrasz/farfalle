@@ -1,11 +1,11 @@
 node_modules
 package_lock.json
 yarn.lock
-src/bin
-src/obj
-src/.fable
+bin
+obj
+.fable
 .ionide
 .vs
 
-public/app.js
-src/**/*.fs.js
+public/farfalle.js
+**/*.fs.js

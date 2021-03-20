@@ -113,5 +113,6 @@ let renderPageFrame title' content =
             Text.rawf "Farfalle © %i&nbsp;&emdash;&nbsp;%i" copyrightSinceYear currentYear
         ]
       ]
+      script [ Attr.src "/js/farfalle.js" ] []
     ]
   ]

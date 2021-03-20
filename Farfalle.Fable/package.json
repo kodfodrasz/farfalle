@@ -9,5 +9,10 @@
     "webpack-dev-server": "^3.11.2"
   },
   "name": "SimpleFableApp",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "dependencies": {
+    "@babel/core": "^7.13.10",
+    "fable-compiler": "^2.13.0",
+    "fable-loader": "^2.1.9"
+  }
 }

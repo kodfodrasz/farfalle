@@ -42,5 +42,8 @@ let homeHandler param =
         input [ Attr.class' "form"; Attr.type' "submit" ]
       ]
       p [ Attr.class' "lorem" ][ Text.raw lipsum ]
+      div [Attr.id "test" ][
+        button [Attr.id "my-button"] [Text.raw "Click me"]
+      ]
      ]
   |> Response.ofHtml
