@@ -16,6 +16,7 @@ module.exports = {
     contentBase: "./public",
     port: 8080,
   },
+  devtool: "inline-cheap-source-map",
   module: {
     rules: [
       {
