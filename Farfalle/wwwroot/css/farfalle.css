@@ -4,6 +4,7 @@
 /* The style */
 html {
   background-color: var(--page-outer-bg-color);
+  min-width: 400px;
 }
 
 body {
@@ -73,7 +74,7 @@ form.upload-form {
 div.drop-zone {
   width: 300px;
   height: 300px;
-  margin: 4em auto;
+  margin: 50px auto;
   background-color: lightgray;
   border: 3px dashed darkgray;
   color: black;
