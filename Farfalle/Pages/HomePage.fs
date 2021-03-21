@@ -57,9 +57,11 @@ let homeHandler param =
         ]
 
         div [ Attr.class' "drop-zone" ] [
-          img [ Attr.src "images/upload-file.png" ]
-          span [] [ Text.raw "Drop files here!" ]
-          div [ Attr.id "drop-zone" ][]
+          div [ Attr.class' "drop-zone-container" ] [
+            img [ Attr.src "images/upload-file.png" ]
+            span [] [ Text.raw "Drop files here!" ]
+          ]
+          div [ Attr.id "drop-zone" ] []
         ]
       ] ]
   |> Response.ofHtml

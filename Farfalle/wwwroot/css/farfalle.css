@@ -80,10 +80,7 @@ div.drop-zone {
   font-size: xx-large;
   font-family: monospace;
   font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  position: relative;
 }
 
 .drop-zone img {
@@ -92,6 +89,15 @@ div.drop-zone {
 
 .drop-zone span {
   flex-basis: 20%;
+}
+
+.drop-zone .drop-zone-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 /* Drop zone: drop target overlay */
