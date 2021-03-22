@@ -42,9 +42,10 @@ let homeHandler param =
              Attr.method "POST"
              Attr.enctype "multipart/form-data" ] [
         input [ Attr.class' "upload-form-file"
-                Attr.type' "file"
                 Attr.id "file-input"
-                Attr.name "filename" ]
+                Attr.name "filenames"
+                Attr.type' "file"
+                Attr.multiple ]
         input [ Attr.class' "form"
                 Attr.type' "submit" ]
       ]
