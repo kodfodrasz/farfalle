@@ -4,6 +4,32 @@
 
 A simple copy-pasta web-application.
 
+## How to run locally
+
+Ensure the following prerequisites are installed 
+
+ - .Net Core 5.0
+ - npm
+ - yarn
+
+Build the project:
+
+~~~sh
+# 1. Restore dotnet tools (eg. Fable):
+dotnet tool restore
+# 2. Compile the project
+dotnet build
+~~~
+
+3. Run it!
+
+~~~sh
+export FARFALLE_DATA_DIR=/some/path/to/put/uploads/
+dotnet run
+~~~
+
+The app should be up and running. You can try the app at <http://localhost:5001>.
+
 ## Acknowledgements
 
 ### Logo
