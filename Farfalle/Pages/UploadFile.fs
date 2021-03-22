@@ -15,6 +15,7 @@ open Microsoft.AspNetCore.Http
 open Falco
 open Falco.Multipart
 open FSharp.Control.Tasks.V2
+open System.Web
 
 let sha256 (stream: Stream) =
   use algo = SHA256.Create()
@@ -45,7 +46,8 @@ let saveFile config filesDir (formFile: IFormFile) =
     use tempReadStream = File.OpenRead tempfileName
     sha256 tempReadStream
 
-  let fileExtension = Path.GetExtension formFile.FileName
+  let filename = HttpUtility.HtmlDecode formFile.FileName
+  let fileExtension = Path.GetExtension filename
 
   let filePathWithoutExtension = Path.Combine(filesDir, fileHash)
 
