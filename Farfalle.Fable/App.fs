@@ -5,12 +5,9 @@ open Browser.Types
 
 
 // Paste event
-document.onpaste <-
-  fun e ->
+let pasteEventHandler (ce:ClipboardEvent) = 
     let logger msg = console.log (sprintf "paste %s" msg)
     logger "event received"
-
-    let ce = unbox<ClipboardEvent> e
 
     let dt = ce.clipboardData
 
@@ -23,16 +20,10 @@ document.onpaste <-
       logger (sprintf "file[%i] name: %s size: %i type: %s" i file.name file.size file.``type``)
 
 // Drop event
-let dropArea =
-  document.querySelector ("#drop-zone") :?> Browser.Types.HTMLDivElement
-
-
-dropArea.ondragover <-
-  fun de -> 
+let dragEventHandler (de:DragEvent) =
     de.preventDefault()
 
-dropArea.ondrop <-
-  fun de ->
+let dropEventHandler (de:DragEvent) =
     de.preventDefault()
 
     let logger msg = console.log (sprintf "drop %s" msg)
@@ -48,3 +39,20 @@ dropArea.ondrop <-
       let file = dt.files.[i]
       logger (sprintf "file[%i] name: %s size: %i type: %s" i file.name file.size file.``type``)
 
+
+let forwardClick (target : HTMLElement) (me:MouseEvent) = 
+  target.click()
+
+// Drop area
+let dropArea = document.querySelector ("#drop-zone") :?> Browser.Types.HTMLButtonElement
+
+// Forms
+let inputFiles = document.querySelector("#upload-form-input-file") :?> HTMLInputElement
+let inputSubmit = document.querySelector("#upload-form-input-submit") :?> HTMLInputElement
+
+
+document.onpaste <- pasteEventHandler
+
+dropArea.ondragover <- dragEventHandler
+dropArea.ondrop <- dropEventHandler
+dropArea.onclick <- forwardClick inputFiles

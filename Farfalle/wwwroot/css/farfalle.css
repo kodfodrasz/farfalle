@@ -53,25 +53,25 @@ body {
   text-align: center;
 }
 
-/* Upload form */
+/* Upload form (shown in noscript) */
 form.upload-form {
   display: flex;
   flex-wrap: wrap;
 }
 
-  form.upload-form input.upload-form-file {
+  form.upload-form input.upload-form-input-file {
     margin: .25em;
     flex-grow: 1;
   }
 
-  form.upload-form input.form {
+  form.upload-form input.upload-form-input-submit {
     flex: 100%;
     padding: 0.5em;
     margin: 1em .25em .25em .25em;
   }
 
 /* Drop zone */
-div.drop-zone {
+.drop-zone {
   width: 300px;
   height: 300px;
   margin: 50px auto;
@@ -84,8 +84,15 @@ div.drop-zone {
   position: relative;
 }
 
+button.drop-zone {
+  display: block;
+  user-select: none;
+  padding: 0;
+}
+
 .drop-zone img {
-  max-width: 50%
+  max-width: 50%;
+  pointer-events: none;
 }
 
 .drop-zone span {
@@ -101,12 +108,17 @@ div.drop-zone {
   height: 100%;
 }
 
-/* Drop zone: drop target overlay */
-.drop-zone #drop-zone {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
+/* overridden in noscript.css */
+.noscript-show {
+}
+
+.noscript-hide {
+}
+
+.yesscript-show {
+  display: unset !important;
+}
+
+.yesscript-hide {
+  display: none !important;
 }

@@ -1,0 +1,7 @@
+.noscript-hide {
+  display: none !important;
+}
+
+.noscript-show {
+  display: unset !important;
+}

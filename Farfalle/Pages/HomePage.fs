@@ -14,6 +14,7 @@ type HomeParams = { Lorem: int }
 
 let parseHomeHandlerParams (query: QueryCollectionReader) = { Lorem = query.GetInt "lorem" 0 }
 
+
 let homeHandler param =
   let lipsum =
     let gen = NLipsum.Core.LipsumGenerator()
@@ -34,35 +35,38 @@ let homeHandler param =
       h2 [] [
         Text.raw "Go ahead: upload a file!"
       ]
-      p [] [
-        Text.raw "Use the form below to upload a file!"
+      div [ Attr.class' "yesscript-hide noscript-show" ] [
+        p [] [
+          Text.raw "Use the form below to upload a file!"
+        ]
+        form [ Attr.class' "upload-form"
+               Attr.action "/upload-file"
+               Attr.method "POST"
+               Attr.enctype "multipart/form-data" ] [
+          input [ Attr.class' "upload-form-file"
+                  Attr.id "upload-form-input-file"
+                  Attr.name "filenames"
+                  Attr.type' "file"
+                  Attr.multiple ]
+          input [ Attr.class' "form"
+                  Attr.id "upload-form-input-submit"
+                  Attr.type' "submit" ]
+        ]
       ]
-      form [ Attr.class' "upload-form"
-             Attr.action "/upload-file"
-             Attr.method "POST"
-             Attr.enctype "multipart/form-data" ] [
-        input [ Attr.class' "upload-form-file"
-                Attr.id "file-input"
-                Attr.name "filenames"
-                Attr.type' "file"
-                Attr.multiple ]
-        input [ Attr.class' "form"
-                Attr.type' "submit" ]
+      div [ Attr.class' "yesscript-show noscript-hide" ] [
+        button [ Attr.class' "drop-zone"
+                 Attr.id "drop-zone" ] [
+          div [ Attr.class' "drop-zone-container" ] [
+            span [] [ Text.raw "Browse files" ]
+            img [ Attr.src "images/upload-file.png" ]
+            span [] [
+              Text.raw "or drop files here"
+            ]
+          ]
+        ]
       ]
+
       p [ Attr.class' "lorem" ] [
         Text.raw lipsum
-      ]
-      div [ Attr.id "test" ] [
-        button [ Attr.id "my-button" ] [
-          Text.raw "Click me"
-        ]
-
-        div [ Attr.class' "drop-zone" ] [
-          div [ Attr.class' "drop-zone-container" ] [
-            img [ Attr.src "images/upload-file.png" ]
-            span [] [ Text.raw "Drop files here!" ]
-          ]
-          div [ Attr.id "drop-zone" ] []
-        ]
       ] ]
   |> Response.ofHtml
