@@ -59,12 +59,18 @@ let dropEventHandler (de:DragEvent) =
     inputFiles.files <- dt.files
     inputSubmit.click()
 
+let mutable submitPending = false;
 
 let clickEventHandler (me:MouseEvent) =
   inputFiles.click()
+  submitPending <- true
 
 let submitFiles (e:Event) = 
-  inputSubmit.click()
+  if submitPending
+  then
+    submitPending <- false
+    inputSubmit.click()
+  else ()
 
 //
 // Event handling registrations
