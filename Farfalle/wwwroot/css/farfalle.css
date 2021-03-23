@@ -4,6 +4,7 @@
 /* The style */
 html {
   background-color: var(--page-outer-bg-color);
+  min-width: 400px;
 }
 
 body {
@@ -12,6 +13,7 @@ body {
   margin: auto;
   display: flex;
   flex-direction: column;
+  font-family: sans-serif;
 }
 
 .header {
@@ -51,19 +53,72 @@ body {
   text-align: center;
 }
 
-/* Upload form */
+/* Upload form (shown in noscript) */
 form.upload-form {
   display: flex;
   flex-wrap: wrap;
 }
 
-form.upload-form input.upload-form-file {
-  margin: .25em;
-  flex-grow: 1;
+  form.upload-form input.upload-form-input-file {
+    margin: .25em;
+    flex-grow: 1;
+  }
+
+  form.upload-form input.upload-form-input-submit {
+    flex: 100%;
+    padding: 0.5em;
+    margin: 1em .25em .25em .25em;
+  }
+
+/* Drop zone */
+.drop-zone {
+  width: 300px;
+  height: 300px;
+  margin: 50px auto;
+  background-color: lightgray;
+  border: 3px dashed darkgray;
+  color: black;
+  font-size: xx-large;
+  font-family: monospace;
+  font-weight: bold;
+  position: relative;
 }
 
-form.upload-form input.form {
-  flex: 100%;
-  padding: 0.5em;
-  margin: 1em .25em .25em .25em;
+button.drop-zone {
+  display: block;
+  user-select: none;
+  padding: 0;
+}
+
+.drop-zone img {
+  max-width: 50%;
+  pointer-events: none;
+}
+
+.drop-zone span {
+  flex-basis: 20%;
+}
+
+.drop-zone .drop-zone-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* overridden in noscript.css */
+.noscript-show {
+}
+
+.noscript-hide {
+}
+
+.yesscript-show {
+  display: unset !important;
+}
+
+.yesscript-hide {
+  display: none !important;
 }

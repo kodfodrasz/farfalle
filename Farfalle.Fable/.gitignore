@@ -1,0 +1,11 @@
+node_modules
+package_lock.json
+yarn.lock
+bin
+obj
+.fable
+.ionide
+.vs
+
+public/farfalle.js
+**/*.fs.js

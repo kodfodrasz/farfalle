@@ -344,3 +344,5 @@ healthchecksdb
 # VisualStudio Code Ionide
 .ionide/
 data/
+Farfalle/data/
+Farfalle/wwwroot/js/farfalle.js

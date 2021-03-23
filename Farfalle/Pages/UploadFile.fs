@@ -6,11 +6,10 @@ open Farfalle
 
 open System
 open System.IO
+open System.Web
 open System.Threading.Tasks
 open System.Security.Cryptography
 open Microsoft.AspNetCore.Http
-
-
 
 open Falco
 open Falco.Multipart
@@ -45,7 +44,8 @@ let saveFile config filesDir (formFile: IFormFile) =
     use tempReadStream = File.OpenRead tempfileName
     sha256 tempReadStream
 
-  let fileExtension = Path.GetExtension formFile.FileName
+  let filename = HttpUtility.HtmlDecode formFile.FileName
+  let fileExtension = Path.GetExtension filename
 
   let filePathWithoutExtension = Path.Combine(filesDir, fileHash)
 

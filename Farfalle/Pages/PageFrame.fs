@@ -8,6 +8,8 @@ open Falco.Markup.Elem
 let copyrightSinceYear = 2021
 let currentYear = System.DateTime.Now.Year
 
+let noscript = Elem.tag "noscript"
+
 let private faviconHeadMeta =
   let appleIconSizes =
     [ 57
@@ -88,6 +90,10 @@ let renderPageFrame title' content =
         [ [ meta [ Attr.charset "utf-8" ]
             link [ Attr.rel "stylesheet"
                    Attr.href "/css/farfalle.css" ]
+            noscript [] [
+              link [ Attr.rel "stylesheet"
+                     Attr.href "/css/noscript.css" ]
+            ]
 
             Elem.title [] [
               if System.String.IsNullOrWhiteSpace title' then
@@ -113,5 +119,6 @@ let renderPageFrame title' content =
             Text.rawf "Farfalle © %i&nbsp;&emdash;&nbsp;%i" copyrightSinceYear currentYear
         ]
       ]
+      script [ Attr.src "/js/farfalle.js" ] []
     ]
   ]

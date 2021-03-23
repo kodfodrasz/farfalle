@@ -1,5 +1,6 @@
 module Farfalle.Program
 
+open System
 open Falco
 open Falco.Routing
 open Falco.HostBuilder
@@ -11,11 +12,21 @@ open Farfalle.Pages
 open Microsoft.AspNetCore.Http
 open Microsoft.Extensions.FileProviders
 open System.IO
+open Microsoft.AspNetCore.Http.Features
+open Microsoft.AspNetCore.Server.Kestrel.Core
 
 // ------------
 // Register services
 // ------------
-let configureServices (services: IServiceCollection) = services.AddFalco() |> ignore
+let configureServices (services: IServiceCollection) =
+  services
+    .AddFalco()
+    .Configure(fun (o:KestrelServerOptions) -> o.Limits.MaxRequestBodySize <- Nullable())
+    .Configure(fun (o: FormOptions) ->
+      o.ValueCountLimit <- 255
+      o.MultipartBodyLengthLimit <- Int64.MaxValue
+      o.MultipartBoundaryLengthLimit <- 2 * 1024 * 1024 * 1024) // 2GB
+  |> ignore
 
 // ------------
 // Activate middleware
@@ -31,7 +42,7 @@ let configureApp
 
   let uploadsDir = Path.Combine(config.DataDir, "uploads")
   Directory.CreateDirectory uploadsDir |> ignore
-  
+
   app
     .UseWhen(devMode, (fun app -> app.UseDeveloperExceptionPage()))
     .UseWhen(
@@ -45,10 +56,7 @@ let configureApp
     .UseFalco(endpoints)
     .UseStaticFiles() // wwwroot
     .UseStaticFiles(
-      StaticFileOptions(
-        RequestPath = (PathString) "/uploads",
-        FileProvider = new PhysicalFileProvider(uploadsDir)
-      )
+      StaticFileOptions(RequestPath = (PathString) "/uploads", FileProvider = new PhysicalFileProvider(uploadsDir))
     )
   |> ignore
 
