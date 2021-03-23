@@ -3,6 +3,20 @@ module App
 open Browser.Dom
 open Browser.Types
 
+//
+// DOM nodes of interest
+//
+
+// Drop area
+let dropArea = document.querySelector ("#drop-zone") :?> Browser.Types.HTMLButtonElement
+
+// Forms
+let inputFiles = document.querySelector("#upload-form-input-file") :?> HTMLInputElement
+let inputSubmit = document.querySelector("#upload-form-input-submit") :?> HTMLInputElement
+
+//
+// Event handling code
+//
 
 // Paste event
 let pasteEventHandler (ce:ClipboardEvent) = 
@@ -18,6 +32,9 @@ let pasteEventHandler (ce:ClipboardEvent) =
     for i in [ 0 .. (dt.files.length - 1) ] do
       let file = dt.files.[i]
       logger (sprintf "file[%i] name: %s size: %i type: %s" i file.name file.size file.``type``)
+
+    inputFiles.files <- dt.files
+    inputSubmit.click()
 
 // Drop event
 let dragEventHandler (de:DragEvent) =
@@ -39,20 +56,24 @@ let dropEventHandler (de:DragEvent) =
       let file = dt.files.[i]
       logger (sprintf "file[%i] name: %s size: %i type: %s" i file.name file.size file.``type``)
 
+    inputFiles.files <- dt.files
+    inputSubmit.click()
 
-let forwardClick (target : HTMLElement) (me:MouseEvent) = 
-  target.click()
 
-// Drop area
-let dropArea = document.querySelector ("#drop-zone") :?> Browser.Types.HTMLButtonElement
+let clickEventHandler (me:MouseEvent) =
+  inputFiles.click()
 
-// Forms
-let inputFiles = document.querySelector("#upload-form-input-file") :?> HTMLInputElement
-let inputSubmit = document.querySelector("#upload-form-input-submit") :?> HTMLInputElement
+let submitFiles (e:Event) = 
+  inputSubmit.click()
 
+//
+// Event handling registrations
+//
 
 document.onpaste <- pasteEventHandler
 
 dropArea.ondragover <- dragEventHandler
 dropArea.ondrop <- dropEventHandler
-dropArea.onclick <- forwardClick inputFiles
+dropArea.onclick <- clickEventHandler
+
+inputFiles.onchange <- submitFiles
